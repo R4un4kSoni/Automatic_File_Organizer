@@ -1,0 +1,29 @@
+Overview of Modules
+This script utilizes two built-in Python modules:
+
+shutil: Provides high-level file operations, specifically used here for moving files.
+
+pathlib: Offers an object-oriented approach to handling file system paths.
+
+Code Breakdown
+folder = Path("Assets")
+This line initializes a Path object pointing to the Assets directory, which functions as the primary repository containing unorganized source data.
+
+for item in folder.iterdir():
+This iterator scans and retrieves all contents—both files and subdirectories—located directly within the Assets directory.
+
+if item.is_file():
+This conditional filter ensures that the script processes only individual files, excluding any nested directories from the operation.
+
+extension = item.suffix[1:].upper()
+This extracts the file extension, strips the leading period (e.g., converting .png to png), and transforms the resulting string into uppercase (becoming PNG). If a file has no extension, it defaults to the identifier NO_EXTENSION.
+
+Directory Creation and File Relocation:
+
+Python
+new_folder = folder / extension
+new_folder.mkdir(exist_ok=True)
+
+destination = new_folder / item.name
+shutil.move(str(item), str(destination))
+These instructions dynamically create a destination subdirectory named after the file's extension (if it does not already exist), construct the target path for each file, and systematically relocate the file into its corresponding category folder.
